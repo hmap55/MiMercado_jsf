@@ -1,0 +1,203 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html" xmlns:p="http://primefaces.org/ui"> 
+
+
+<h:head>
+    <meta charset="UTF-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>MiMercado</title>
+    <link rel="stylesheet" type="text/css" href="css/resumen.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"/>
+    <link rel="icon" type="image/png" href="https://www.google.com/s2/favicons?domain=css-tricks.com"/>
+    <link rel="preconnect" href="https://fonts.googleapis.com"/>
+    <!-- <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin=""/> -->
+   <!--  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap" rel="stylesheet"/> -->
+</h:head>
+<h:body>
+
+  
+    
+    <!--header-->
+    <div class="header">
+        <div class="header-logo">
+            <div class="header-titulo">
+               <h1>MIMERCADO</h1>
+            </div>
+            <div class="imagen">
+            </div>
+            
+        </div>
+        <div class="header-busqueda">
+            <input type="text"  id="busqueda" placeholder="Busca un producto">
+            <span class="logo-busqueda">
+                <i class="fas fa-search fa-2x"></i>
+            </span>
+            </input>
+        </div>
+        <h:form class="header-admin">
+            <h:commandLink class="header-carrito">
+                <h3 class="header-carrito-total"> Total: $<h:outputLabel value="#{cargaBean.total()}" ></h:outputLabel>  <span> <i class="fas fa-shopping-cart "></i></span></h3> 
+            </h:commandLink>
+            <h:commandLink class="header-usuario" >
+                <h3 class="header-carrito-usuario"> Mi nombre: <h:outputText value ="#{ClienteBean.nombre}"/><h:outputText value ="#{UsuarioBean.asignarUsuario()}"/><span><i class="fas fa-user"></i></span></h3> 
+            </h:commandLink>
+            
+             <h:commandLink class="header-carrito" action = "#{ProductoBean.limpiarCompras()}" >
+                <h3 class="header-carrito-total"> cerrar sesion</h3> 
+            </h:commandLink>
+        </h:form>
+    </div>
+
+
+    <!--nav-->
+
+    <div class="menu">
+        <ul class="menu-opciones">
+            <a href="index_promos.xhtml"><li class="opciones">Promos</li></a>
+            <a href="secciones.xhtml"><li class="opciones">Secciones</li></a>
+            <li class="opciones">Marcas</li>
+            <li class="opciones">Favoritos</li>
+        </ul>
+    </div>
+    
+    
+    <!-- tabla productos -->
+    <div class="main">
+    <h2>Lista de compras</h2>
+    <h:form>
+    <div class="tabla">
+        <div class="modificar">
+        <h:outputText value="nueva cantidad"></h:outputText>
+        <h:inputText styleClass= "input" value="${TablaBean.cantidad}"></h:inputText>
+        <h:commandButton value="vaciar carrito" class="boton" action = "#{ProductoBean.limpiarTabla()}"></h:commandButton>
+        </div>
+        <p:dataTable var="productos" value ="#{TablaBean.listarTabla()}" reflow="true" >
+            <p:column headerText="Codigo">
+                <h:outputText value="#{productos.get(0)}" />
+                <f:attribute name="valor" value="#{productos.get(0)}"/>
+            </p:column>
+
+            <p:column headerText="Nombre">
+                <h:outputText value="#{productos.get(1)}" />
+            </p:column>
+
+            <p:column headerText="Precio">
+                <h:outputText value="#{productos.get(2)}" />
+            </p:column>
+
+            <p:column headerText="Cantidad">
+                <h:outputText value="#{productos.get(3)}"  />
+            </p:column>
+            
+            <p:column headerText="Imagen">
+                <h:graphicImage value="#{productos.get(4)}" class="tabla-imagen" />
+                                
+            </p:column>
+            
+             <p:column headerText="Total">
+                <h:outputText value="#{productos.get(5)}" />
+            </p:column>
+            
+            <p:column >
+                
+                <h:commandButton value="modificar" class="contenido-total boton-tabla" action="#{TablaBean.actualizar(productos)}" >
+                </h:commandButton>
+            </p:column>
+            
+            <p:column >
+                <h:commandButton value="quitar" class="boton-tabla" action ="#{TablaBean.borrar(productos)}" >
+                </h:commandButton>
+            </p:column>
+            
+        </p:dataTable>
+        
+        <p:dataTable value="#{cargaBean.total()}">
+            <p:column headerText="Total sin iva" class="contenido-total">
+                $<h:outputText value="#{cargaBean.total() * 0.81}"  />
+            </p:column>
+            
+             <p:column headerText="Iva"  class="contenido-total">
+               $<h:outputText value="#{cargaBean.total() * 0.19}"  />
+            </p:column>
+            
+             <p:column headerText="Total"  class="contenido-total">
+                $<h:outputText value="#{cargaBean.total()}" />
+            </p:column>
+        
+        </p:dataTable>
+        
+        </div>
+        
+        </h:form>
+        <div class="pagos">
+        <h:form  >
+        <h:graphicImage value="imagenes/PSE.png" class="pagos-imagen" />
+        <h:graphicImage value="imagenes/images.png" class="pagos-imagen" />
+        <p:selectOneRadio id="console" value="#{PagosBean.opcionPago}" unselectable="true" >
+            <f:selectItem itemLabel="PSE" itemValue="pse"/>          
+            <f:selectItem itemLabel="MASTER CARD" itemValue="master"/>
+            
+        </p:selectOneRadio>
+        
+        <h:commandButton value="Pagar" class="boton-tabla" action="#{PagosBean.opcion()}" >
+        </h:commandButton>
+        <h:commandButton value="Cancelar" class="boton-tabla" action="#{PagosBean.cancelar()}"  >
+        </h:commandButton>
+        
+        </h:form>
+       </div>
+       
+</div>
+    
+    
+    <footer>
+    <div class="container-footer">
+        <div class="container-body">
+
+            <div class="colum1">
+                <h1>Información de contacto</h1>
+           
+                <p>Encuentra todo para tu hogar, de la mejor calidad y al mejor precio</p>
+                <p>No dudes en contactarnos </p>
+                <div class="row">
+                    <i class="far fa-envelope"></i>
+                    <label>Correo:MiMercado@MiMercado.com</label></div>
+                <div class="row">
+                    <i class="fas fa-phone-alt"></i>
+                    <label>Tel: 300 555 5555</label>
+
+        </div> 
+            </div>
+
+            <div class="colum2">
+                <div class="logo">
+                <img class="logo2" src="imagenes/img/logo_small_icon_only.png" alt="MiMercado" width="150" height="150"/></div>
+                <center><h1>MiMercado</h1></center>
+            </div>
+
+            <div class="colum3">
+                <h1>Redes sociales</h1><br />
+                <div class="redes-container">
+                    <ul>
+                        <li><a href="https://www.facebook.com/" class="facebook"><i class="fab fa-facebook-square"></i></a></li>
+                        <li><a href="https://www.instagram.com/?hl=es" class="instagram"><i class="fab fa-instagram-square"></i></a></li>
+                        <li><a href="https://twitter.com/?lang=es" class="twitter"><i class="fab fa-twitter-square"></i></a></li>
+                    </ul>
+                </div><br />
+                <center><p>Siguenos en nuestras redes sociales</p></center>
+            </div>
+        
+        </div>
+    <div class="container-copyright">
+        <div class="copyright">
+            MiMercado 2021 © Todos los derechos reservados
+        </div>
+        </div>
+    </div>
+</footer>
+   
+    
+    
+</h:body>
+</html>

@@ -1,0 +1,142 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html" xmlns:p="http://primefaces.org/ui"> 
+
+<h:head>
+    <meta charset="UTF-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>MiMercado</title>
+    <link rel="stylesheet" href="css/style-prod.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"/>
+    <link rel="icon" type="image/png" href="https://www.google.com/s2/favicons?domain=css-tricks.com"/>
+    <link rel="preconnect" href="https://fonts.googleapis.com"/>
+    <script src="js/script-producto.js"></script>
+
+
+</h:head>
+<h:body>
+    
+     <!--header-->
+    <div class="header">
+        <div class="header-logo">
+            <div class="header-titulo">
+               <h1>MIMERCADO</h1>
+            </div>
+            <div class="imagen">
+            </div>
+            
+        </div>
+        <div class="header-busqueda">
+            <input type="text"  id="busqueda" placeholder="Busca un producto">
+            <span class="logo-busqueda">
+                <i class="fas fa-search fa-2x"></i>
+            </span>
+            </input>
+        </div>
+        <h:form class="header-admin">
+            <h:commandLink class="header-carrito" action = "#{cargaBean.pago()}">
+                <h3 class="header-carrito-total"> Total: $<h:outputLabel value="#{cargaBean.total()}" ></h:outputLabel>  <span> <i class="fas fa-shopping-cart "></i></span></h3> 
+            </h:commandLink>
+            <h:commandLink class="header-usuario" >
+                <h3 class="header-carrito-usuario"> Mi nombre: <h:outputText value ="#{ClienteBean.nombre}"/><h:outputText value ="#{UsuarioBean.asignarUsuario()}"/><span><i class="fas fa-user"></i></span></h3> 
+            </h:commandLink>
+            
+             <h:commandLink class="header-carrito" action = "#{ProductoBean.limpiarCompras()}" >
+                <h3 class="header-carrito-total"> cerrar sesion</h3> 
+            </h:commandLink>
+        </h:form>
+    </div>
+
+
+    <!--nav-->
+
+    <div class="menu">
+        <ul class="menu-opciones">
+            <a href="index_promos.xhtml"><li class="opciones">Promos</li></a>
+            <a href="secciones.xhtml"><li class="opciones">Secciones</li></a>
+            <li class="opciones">Marcas</li>
+            <li class="opciones">Favoritos</li>
+        </ul>
+    </div>
+    
+
+    <!---main-->
+
+    <div class="main-producto" >
+    <!-- <p:messages id="validar_datos" closable = "true"></p:messages>-->
+        <div class="main-info-producto">
+            <img src="#{cargaBean.getUrl()}" class="main-img-producto" id="imagen"/>
+            <div class="info">
+                <h3 id="producto-codigo">cod: 000<h:outputText value ="#{cargaBean.getCodigo()}"></h:outputText></h3>
+                <h:outputText id="main-producto-descripcion" value="#{cargaBean.getNombre()}"></h:outputText>
+                <h3 >$ <h:outputText value="#{cargaBean.getPrecio()}"></h:outputText> </h3>
+                <p id="main-producto-precio-unitario">Existencias: <h:outputText value="#{cargaBean.getInventario()}"></h:outputText> und.</p>
+
+               
+                <h:form class="producto-compra">
+                    <h:commandButton  class="producto-mas" action="#{cargaBean.sumar()}" id="producto-mas"  value =" + ">
+                          <f:ajax   render="producto-cantidad"></f:ajax>
+                    </h:commandButton>
+                    <p:inputText  id="producto-cantidad" class="producto-cantidad" value="#{cargaBean.valor}" ></p:inputText>
+                    <h:commandButton id="producto-menos"  action="#{cargaBean.restar()}" class="producto-menos"  value = "-"></h:commandButton>
+                    <h:commandButton id="producto-agregar" action="#{cargaBean.agregarLista()}" class="producto-agregar" value = "AGREGAR AL CARRITO"></h:commandButton>
+                </h:form>
+                
+            </div>
+        </div>
+    </div>
+
+
+     <!-- footer-->
+
+     <footer>
+    <div class="container-footer">
+        <div class="container-body">
+
+            <div class="colum1">
+                <h1>Información de contacto</h1>
+           
+                <p>Encuentra todo para tu hogar, de la mejor calidad y al mejor precio</p>
+                <p>No dudes en contactarnos </p>
+                <div class="row">
+                    <i class="far fa-envelope"></i>
+                    <label>Correo:MiMercado@MiMercado.com</label></div>
+                <div class="row">
+                    <i class="fas fa-phone-alt"></i>
+                    <label>Tel: 300 555 5555</label>
+
+        </div> 
+            </div>
+
+            <div class="colum2">
+                <div class="logo">
+                <img class="logo2" src="imagenes/img/logo_small_icon_only.png" alt="MiMercado" width="150" height="150"/> 
+                </div>
+                <center><h1>MiMercado</h1></center>
+            </div>
+
+            <div class="colum3">
+                <h1>Redes sociales</h1><br />
+                <div class="redes-container">
+                    <ul>
+                        <li><a href="https://www.facebook.com/" class="facebook"><i class="fab fa-facebook-square"></i></a></li>
+                        <li><a href="https://www.instagram.com/?hl=es" class="instagram"><i class="fab fa-instagram-square"></i></a></li>
+                        <li><a href="https://twitter.com/?lang=es" class="twitter"><i class="fab fa-twitter-square"></i></a></li>
+                    </ul>
+                </div><br />
+                <center><p>Siguenos en nuestras redes sociales</p></center>
+            </div>
+        
+        </div>
+    <div class="container-copyright">
+        <div class="copyright">
+            MiMercado 2021 © Todos los derechos reservados
+        </div>
+        </div>
+    </div>
+</footer>
+
+    
+    
+</h:body>
+</html>

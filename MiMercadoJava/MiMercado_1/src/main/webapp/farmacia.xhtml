@@ -1,0 +1,188 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html" xmlns:p="http://primefaces.org/ui"> 
+
+<h:head>
+    <meta charset="UTF-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>MiMercado</title>
+    <link rel="stylesheet" href="css/farmacia.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"/>
+    <link rel="icon" type="image/png" href="https://www.google.com/s2/favicons?domain=css-tricks.com"/>
+    <link rel="preconnect" href="https://fonts.googleapis.com"/>
+    
+</h:head>
+<h:body>
+    
+      <!--header-->
+    <div class="header">
+        <div class="header-logo">
+            <div class="header-titulo">
+               <h1>MIMERCADO</h1>
+            </div>
+            <div class="imagen">
+            </div>
+            
+        </div>
+        <div class="header-busqueda">
+            <input type="text"  id="busqueda" placeholder="Busca un producto">
+            <span class="logo-busqueda">
+                <i class="fas fa-search fa-2x"></i>
+            </span>
+            </input>
+        </div>
+        <h:form class="header-admin">
+            <h:commandLink class="header-carrito" action = "#{cargaBean.pago()}">
+                <h3 class="header-carrito-total"> Total: $<h:outputLabel value="#{cargaBean.total()}" ></h:outputLabel>  <span> <i class="fas fa-shopping-cart "></i></span></h3> 
+            </h:commandLink>
+            <h:commandLink class="header-usuario" >
+                <h3 class="header-carrito-usuario"> Mi nombre: <h:outputText value ="#{ClienteBean.nombre}"/><h:outputText value ="#{UsuarioBean.asignarUsuario()}"/><span><i class="fas fa-user"></i></span></h3> 
+            </h:commandLink>
+            
+             <h:commandLink class="header-carrito" action = "#{ProductoBean.limpiarCompras()}" >
+                <h3 class="header-carrito-total"> cerrar sesion</h3> 
+            </h:commandLink>
+        </h:form>
+    </div>
+
+
+    <!--nav-->
+
+    <div class="menu">
+        <ul class="menu-opciones">
+            <a href="index_promos.xhtml"><li class="opciones">Promos</li></a>
+            <a href="secciones.xhtml"><li class="opciones">Secciones</li></a>
+            <li class="opciones">Marcas</li>
+            <li class="opciones">Favoritos</li>
+        </ul>
+    </div>
+    
+
+    <!-- main -->
+    <h:form class="container">
+        <h:commandLink class="card" action="#{ProductoBean.cargarDatos()}" actionListener = "#{ProductoBean.asignar}" >
+            <img src="imagenes/farmacia/agua_oxigenada_10_volumenes_coaspharma-11120-1602105170.png" alt=""/>
+            <h:outputText value="Agua Oxigenada Frasco X 120 Ml"></h:outputText>
+            <f:attribute name="valor" value="Agua Oxigenada Frasco X 120 Ml"/>    
+            <h3><sup>$</sup>3.800</h3>
+        </h:commandLink>
+        <h:commandLink class="card" action="#{ProductoBean.cargarDatos()}" actionListener = "#{ProductoBean.asignar}" >
+            <img src="imagenes/farmacia/alcohol_mk-53180-1608166299.png" alt=""/>
+            <h:outputText value="Alcohol Mk Caneca X 350 Ml"></h:outputText>
+            <f:attribute name="valor" value="Alcohol Mk Caneca X 350 Ml"/>    
+            <h3><sup>$</sup>3.500</h3>
+        </h:commandLink>
+       <h:commandLink class="card" action="#{ProductoBean.cargarDatos()}" actionListener = "#{ProductoBean.asignar}" >
+            <img src="imagenes/farmacia/algodon_mk-63987-1608166409.png" alt=""/>
+            <h:outputText value="Algodon Mk Bolsa X 25.00 Grs"></h:outputText>
+            <f:attribute name="valor" value="Algodon Mk Bolsa X 25.00 Grs"/>    
+            <h3><sup>$</sup>1.800</h3>
+        </h:commandLink>
+        <h:commandLink class="card" action="#{ProductoBean.cargarDatos()}" actionListener = "#{ProductoBean.asignar}" >
+            <img src="imagenes/farmacia/aspirina_100-83512-1630672924.png" alt=""/>
+            <h:outputText value="Aspirina 100 Estuche X 140 Tab"></h:outputText>
+            <f:attribute name="valor" value="Aspirina 100 Estuche X 140 Tab"/>    
+            <h3><sup>$</sup>67.600</h3>
+        </h:commandLink>
+        <h:commandLink class="card" action="#{ProductoBean.cargarDatos()}" actionListener = "#{ProductoBean.asignar}" >
+            <img src="imagenes/farmacia/aspirina_efervescente_500_mg-11369-1607515618.png" alt=""/>
+            <h:outputText value="Aspirina Efervescente 500 Mg Caja X 50.00 Tab"></h:outputText>
+            <f:attribute name="valor" value="Aspirina Efervescente 500 Mg Caja X 50.00 Tab"/>    
+            <h3><sup>$</sup>50.200</h3>
+        </h:commandLink>
+        <h:commandLink class="card" action="#{ProductoBean.cargarDatos()}" actionListener = "#{ProductoBean.asignar}" >
+            <img src="imagenes/farmacia/congestex-43561-1618314308.png" alt=""/>
+            <h:outputText value="Cogestex Caja x 10 Tab"></h:outputText>
+            <f:attribute name="valor" value="Cogestex Caja x 10 Tab"/>
+            <h3><sup>$</sup>16.100</h3>
+        </h:commandLink>
+        <h:commandLink class="card" action="#{ProductoBean.cargarDatos()}" actionListener = "#{ProductoBean.asignar}" >
+            <img src="imagenes/farmacia/dolex_500_mg-94174-1615171517.png" alt=""/>
+            <h:outputText value ="Dolex 500 Mg Caja X 100 Tab"></h:outputText>
+            <f:attribute name="valor" value="Dolex 500 Mg Caja X 100 Tab"/>    
+            <h3><sup>$</sup>55.850</h3>
+        </h:commandLink>
+       <h:commandLink class="card" action="#{ProductoBean.cargarDatos()}" actionListener = "#{ProductoBean.asignar}" >
+            <img src="imagenes/farmacia/esparadrapo_tela_blanco_alfasafe_1x5_yd_2_5_x_450-21270-1622569223.png"/>
+            <h:outputText value="Esparadrapo Tela Blanco Alfasafe 1x5 Yd 2.5 X 450 Und X 1 Und"></h:outputText>
+            <f:attribute name="valor" value="Esparadrapo Tela Blanco Alfasafe 1x5 Yd 2.5 X 450 Und X 1 Und"/>    
+            <h3><sup>$</sup>7.000</h3>
+        </h:commandLink>
+        <h:commandLink class="card" action="#{ProductoBean.cargarDatos()}" actionListener = "#{ProductoBean.asignar}" >
+            <img src="imagenes/farmacia/gasa_esteril_no_tejida_alfasafe_7_7_x_7_5_cm-21002-1568730659.png" alt=""/>
+            <h:outputText value="Gasa Tejida Esteril Alfasafe 7.5x7.5 Cm Sobre X 2 Und"></h:outputText>
+            <f:attribute name="valor" value="Gasa Tejida Esteril Alfasafe 7.5x7.5 Cm Sobre X 2 Und"/>
+            <h3><sup>$</sup>900</h3>
+        </h:commandLink>
+        <h:commandLink class="card" action="#{ProductoBean.cargarDatos()}" actionListener = "#{ProductoBean.asignar}" >
+            <img src="imagenes/farmacia/gelimed-113882-1631210827 (1).png" alt=""/>
+            <h:outputText value="Gelimed caja x 30 sob"></h:outputText>
+            <f:attribute name="valor" value="Gelimed caja x 30 sob"/>
+            <h3><sup>$</sup>67.200</h3>
+        </h:commandLink>
+        <h:commandLink class="card" action="#{ProductoBean.cargarDatos()}" actionListener = "#{ProductoBean.asignar}" >
+            <img src="imagenes/farmacia/gestavit_dha-15446-1584722291.png" alt=""/>
+            <h:outputText value="Gestavit Dha caja x 30 capsulas"></h:outputText>
+            <f:attribute name="valor" value="Gestavit Dha caja x 30 capsulas"/>
+            <h3><sup>$</sup>62.700</h3>
+        </h:commandLink>
+        <h:commandLink class="card" action="#{ProductoBean.cargarDatos()}" actionListener = "#{ProductoBean.asignar}" >
+            <img src="imagenes/farmacia/ibuflash_forte_400_mg-60106-1609897882.png" alt=""/>
+            <h:outputText value="Ibuflash Forte 400 Mg Caja X 8 Und"></h:outputText>
+            <f:attribute name="valor" value="Ibuflash Forte 400 Mg Caja X 8 Und"/>    
+            <h3><sup>$</sup>8.750</h3>
+        </h:commandLink>
+    </h:form>
+
+<!-- footer-->
+
+
+<footer>
+    <div class="container-footer">
+        <div class="container-body">
+
+            <div class="colum1">
+                <h1>Información de contacto</h1>
+           
+                <p>Encuentra todo para tu hogar, de la mejor calidad y al mejor precio</p>
+                <p>No dudes en contactarnos </p>
+                <div class="row">
+                    <i class="far fa-envelope"></i>
+                    <label>Correo:MiMercado@MiMercado.com</label></div>
+                <div class="row">
+                    <i class="fas fa-phone-alt"></i>
+                    <label>Tel: 300 555 5555</label>
+
+        </div> 
+            </div>
+
+            <div class="colum2">
+                <div class="logo">
+                <img class="logo2" src="imagenes/img/logo_small_icon_only.png" alt="MiMercado" width="150" height="150"/></div>
+                <center><h1>MiMercado</h1></center>
+            </div>
+
+            <div class="colum3">
+                <h1>Redes sociales</h1><br />
+                <div class="redes-container">
+                    <ul>
+                        <li><a href="https://www.facebook.com/" class="facebook"><i class="fab fa-facebook-square"></i></a></li>
+                        <li><a href="https://www.instagram.com/?hl=es" class="instagram"><i class="fab fa-instagram-square"></i></a></li>
+                        <li><a href="https://twitter.com/?lang=es" class="twitter"><i class="fab fa-twitter-square"></i></a></li>
+                    </ul>
+                </div><br />
+                <center><p>Siguenos en nuestras redes sociales</p></center>
+            </div>
+        
+        </div>
+    <div class="container-copyright">
+        <div class="copyright">
+            MiMercado 2021 © Todos los derechos reservados
+        </div>
+        </div>
+    </div>
+</footer>
+
+
+</h:body>
+</html>
